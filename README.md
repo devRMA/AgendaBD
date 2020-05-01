@@ -1,2 +1,2 @@
 # AgendaBD
-Exercício do Senai sobre JBDC, MVC e Factory
+Exercício do Senai sobre JDBC, MVC e Factory
