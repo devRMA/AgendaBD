@@ -12,7 +12,8 @@ public class Acoes {
     private static void listarTodosOsContatos(){
         System.out.println("Todos os contatos: ");
         for (Contato i : controlador.obterContatos()){
-            System.out.printf("ID: %d\nNome: %s\nTelefone: %s\nEmail: %s", i.getId(), i.getNome(), i.getTelefone(), i.getEmail());
+            System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=");
+            System.out.printf("ID: %d\nNome: %s\n", i.getId(), i.getNome(), i.getTelefone(), i.getEmail());
         }
     }
     public static void adicionarContato(){
@@ -39,13 +40,17 @@ public class Acoes {
     public static void removerContato(){
         listarTodosOsContatos();
         System.out.print("Digite o ID, do contato que você quer remover: ");
-        int idDeletar = Integer.parseInt(scanner.nextLine());
-        Contato c = controlador.acharContato(idDeletar);
-        if (controlador.removerContato(c)){
-            System.out.println("Contato removido com sucesso!");
+        try {
+            int idDeletar = Integer.parseInt(scanner.nextLine());
+            Contato c = controlador.acharContato(idDeletar);
+            if (controlador.removerContato(c)) {
+                System.out.println("Contato removido com sucesso!");
+            } else {
+                System.out.println("Falha ao remover contato!");
+            }
         }
-        else {
-            System.out.println("Falha ao remover contato!");
+        catch (NumberFormatException e){
+            System.out.println("Digite apenas números!");
         }
     }
     public static void atualizarContato(){
@@ -54,31 +59,59 @@ public class Acoes {
         String novoEmail;
         listarTodosOsContatos();
         System.out.print("Digite o ID, do contato que você deseja alterar: ");
-        int idAlterar = Integer.parseInt(scanner.nextLine());
+        try {
+            int idAlterar = Integer.parseInt(scanner.nextLine());
 
-        Contato contatoNovo = new Contato();
+            Contato contatoNovo = new Contato();
 
-        contatoNovo.setId(idAlterar);
-        System.out.print("Digite o novo nome: ");
-        novoNome = scanner.nextLine();
+            contatoNovo.setId(idAlterar);
+            System.out.print("Digite o novo nome: ");
+            novoNome = scanner.nextLine();
 
-        System.out.print("Digite o novo telefone: ");
-        novoTelefone = scanner.nextLine();
+            System.out.print("Digite o novo telefone: ");
+            novoTelefone = scanner.nextLine();
 
-        System.out.println("Digite o novo email: ");
-        novoEmail = scanner.nextLine();
+            System.out.print("Digite o novo email: ");
+            novoEmail = scanner.nextLine();
 
-        if (controlador.atualizarContato(idAlterar, novoNome, novoTelefone, novoEmail)){
-            System.out.println("Contato alterado com sucesso!");
+            if (controlador.atualizarContato(idAlterar, novoNome, novoTelefone, novoEmail)) {
+                System.out.println("Contato alterado com sucesso!");
+            } else {
+                System.out.println("Falha em alterar o contato.");
+            }
         }
-        else {
-            System.out.println("Falha em alterar o contato.");
+        catch (NumberFormatException e){
+            System.out.println("Digite apenas números!");
         }
     }
     public static void listarTodosOsContatosCadastrados(){
         for (Contato i : controlador.obterContatos()){
-            System.out.println("===========================================================================");
-            System.out.printf("ID: %d\nNome: %s\nTelefone: %s\nEmail: %s", i.getId(), i.getNome(), i.getTelefone(), i.getEmail());
+            if (i != null) {
+                System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=");
+                System.out.printf("ID: %d\nNome: %s\nTelefone: %s\nEmail: %s\n", i.getId(), i.getNome(), i.getTelefone(), i.getEmail());
+            }
+            else {
+                System.out.println("Nenhum contato cadastrado.");
+            }
         }
+    }
+    public static void getContato(){
+        System.out.print("Digite o ID do contato, que você deseja obter mais informações: ");
+        try {
+            int id = Integer.parseInt(scanner.nextLine());
+            Contato contatoSelecionado = controlador.acharContato(id);
+            if (contatoSelecionado != null){
+                System.out.println("Nome: " + contatoSelecionado.getNome());
+                System.out.println("Telefone: " + contatoSelecionado.getTelefone());
+                System.out.println("Email: " + contatoSelecionado.getEmail());
+            }
+            else{
+                System.out.println("Contato não encontrado!");
+            }
+        }
+        catch (NumberFormatException e){
+            System.out.println("Digite apenas números!");
+        }
+
     }
 }

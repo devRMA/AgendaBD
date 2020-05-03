@@ -36,6 +36,7 @@ public class ContatoDao {
      * CRUD -> Create, Read, Update, Delete
      */
 
+
     // Create - Insere um novo contato no banco
     public boolean adicionarContato(Contato c) {
 

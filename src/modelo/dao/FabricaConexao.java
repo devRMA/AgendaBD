@@ -18,7 +18,8 @@ public class FabricaConexao{
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
             // Conectando ao banco
-            Connection conexao = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=agenda;integratedSecurity=true;");
+            Connection conexao = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;" +
+                    "databaseName=agenda;user=User;password=******;");
 
             return conexao;
 
